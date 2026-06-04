@@ -19,9 +19,11 @@ class UtilisateursModels(baseDonees):
         self.curseur.execute("UPDATE users set id = ?, nom = ?, role = ?"
                              
                              ,(id, nom, role))
-        
+        self.connexion.commit()
     def Afficher(self):
         self.curseur.execute("SELECT * FROM users ")
+        return self.curseur.fetchall()
+    
 
 
         

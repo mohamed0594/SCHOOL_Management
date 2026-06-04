@@ -1,8 +1,9 @@
 import sqlite3
 class baseDonees:
     def __init__(self):
-        self.connexion = sqlite3.connect("ecole.db")
+        self.connexion = sqlite3.connect("MaDataBase.db")
         self.curseur = self.connexion.cursor()
+
 
 # creation de la table users
     def users(self):
