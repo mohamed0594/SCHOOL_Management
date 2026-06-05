@@ -3,6 +3,12 @@ class baseDonees:
     def __init__(self):
         self.connexion = sqlite3.connect("MaDataBase.db")
         self.curseur = self.connexion.cursor()
+        self.users()
+        self.students()
+    
+
+        self.connexion.commit()
+
 
 
 # creation de la table users
@@ -58,17 +64,17 @@ class baseDonees:
 
         """
         )
-    def grades(self):
-        self.curseur.execute(
-        """
-        CREATE TABLE IF NOT EXISTS grades(
+    def students(self):
+      self.curseur.execute("""
+        CREATE TABLE IF NOT EXISTS students(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            student_id TEXT NOT NULL,
-            subject_id TEXT NOT NULL,
-            note TEXT NOT NULL,
-
-        """
+            matricule TEXT UNIQUE NOT NULL,
+            nom TEXT NOT NULL,
+            prenom TEXT NOT NULL,
+            age INTEGER NOT NULL,
+            classe TEXT NOT NULL
         )
+    """)
 # creation de la table absences
     def absences(self):
         self.curseur.execute(
@@ -80,3 +86,7 @@ class baseDonees:
             status TEXT NOT NULL
         """
         )
+
+
+
+   
