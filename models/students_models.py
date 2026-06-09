@@ -1,7 +1,7 @@
-from database.base_principale import baseDonees
+from database.base_principale import BaseDonnees
 
 
-class StudentModels(baseDonees):
+class StudentModels(BaseDonnees):
     def __init__(self):
         super().__init__()
 # creation de CRUD students

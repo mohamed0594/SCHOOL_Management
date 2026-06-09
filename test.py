@@ -1,5 +1,12 @@
-from models.students_models import StudentModels
+from models.users_models import UtilisateursModels
 
-students = StudentModels()
-students.MiseAJour("2", "dbjj","kdkj","jj","26", "hdhd")
+users = UtilisateursModels()
 
+users.Ajouter(
+    "Administrateur",
+    "admin",
+    "admin123",
+    "admin@example.com"
+)
+
+print("Utilisateur ajouté avec succès")

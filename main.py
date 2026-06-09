@@ -1,91 +1,84 @@
 from models.students_models import StudentModels
-from models.users_models import UtilisateursModels
-from config.constantes import MenuConnect, menuEtudiant
+from services.auth_service import AuthService
 from config.constantes import menuPrincipale
 
 students = StudentModels()
-users = UtilisateursModels()
-
-
+auth_service = AuthService()
 
 print(menuPrincipale)
 
+email = input("Entrer votre email : ")
+password = input("Entrer votre mot de passe : ")
+
+user = auth_service.login(email, password)
+
+if not user:
+    print("Email ou mot de passe incorrect")
+    exit()
+
+print(f"\nBienvenue {user[1]}")
+print(f"Rôle : {user[2]}\n")
+
+# MENU PRINCIPAL
 while True:
-    print(menuEtudiant)
 
-    optionDeChoix = input("Votre option de choix : ")
+    print("""
+=== MENU PRINCIPAL ===
+1. Service Étudiants
+2. Service Professeurs
+3. Service Matières
+4. Service Notes
+5. Service Absences
+6. Quitter
+""")
 
-    if optionDeChoix == "1":
-        matricule = input("Entrer votre matricule : ")
+    choix = input("Choix : ")
 
-        while True:
-            nom = input("Veuillez entrer votre nom : ")
+    # ================= ETUDIANTS =================
+    if choix == "1":
+        if user[2] in ["admin", "etudiant"]:
 
-            if all(mots.isalpha() for mots in nom.split()):
-                break
-            else:
-                print("Erreur : le nom doit contenir uniquement des lettres.")
+            print("""
+--- SERVICE ETUDIANTS ---
+1. Ajouter
+2. Afficher
+3. Modifier
+4. Supprimer
+""")
 
-        while True:
-            prenom = input("veuillez entrer votre prenom : ")
+            action = input("Action : ")
 
-            if all(mot.isalpha() for mot in prenom.split()):
-                break
-            else:
-                print("Erreur : le prénom doit contenir uniquement des lettres.")
+            if action == "1":
+                matricule = input("Matricule : ")
+                nom = input("Nom : ")
+                prenom = input("Prenom : ")
+                age = int(input("Age : "))
+                classe = input("Classe : ")
 
-        while True:
-            age = input("Veuillez entrer votre âge : ")
+                students.Ajouter(matricule, nom, prenom, age, classe)
 
-            if age.isdigit():
-                age = int(age)
-                break
-            else:
-                print("Désolé : l'âge doit être un nombre entier.")
+            elif action == "2":
+                for s in students.Afficher():
+                    print(s)
 
-        classe = input("Entrer votre classe : ")
+            elif action == "3":
+                id = input("ID : ")
+                matricule = input("Matricule : ")
+                nom = input("Nom : ")
+                prenom = input("Prenom : ")
+                age = int(input("Age : "))
+                classe = input("Classe : ")
 
-        students.Ajouter(matricule, nom, prenom, age, classe)
+                students.MiseAJour(id, matricule, nom, prenom, age, classe)
 
-        print(f"L'étudiant {nom} {prenom} a été ajouté avec succès !")
+            elif action == "4":
+                id = input("ID : ")
+                students.Supprimer(id)
 
-    elif optionDeChoix == "2":
-        identifiant = input("Entrer votre identifiant : ")
-
-        students.Supprimer(identifiant)
-
-        print(f"L'identifiant {identifiant} a été supprimé !")
-
-    elif optionDeChoix == "3":
-        nouveauId = input("Entrer l'identifiant à modifier : ")
-        nouveauMatricule = input("Entrer le nouveau matricule : ")
-        nouveauNom = input("Entrer le nouveau nom : ")
-        nouveauPrenom = input("Entrer le nouveau prénom : ")
-        nouveauAge = input("Entrer le nouvel âge : ")
-        nouvelleClasse = input("Entrer la nouvelle classe : ")
-
-        students.MiseAJour(
-            nouveauId,
-            nouveauMatricule,
-            nouveauNom,
-            nouveauPrenom,
-            nouveauAge,
-            nouvelleClasse
-        )
-
-        print(
-            f"La mise à jour de {nouveauNom} {nouveauPrenom} a été effectuée avec succès !"
-        )
-
-    elif optionDeChoix == "4":
-        for student in students.Afficher():
-            print(student)
-
-        print("Fin de la lecture")
-
-    elif optionDeChoix == "5":
-        print("Au revoir mon ami(e) !")
+    # ================= QUITTER =================
+    elif choix == "6":
+        print("Au revoir ")
         break
 
     else:
-        print("L'option que vous avez entrée est invalide !")
+        print("Choix invalide")
