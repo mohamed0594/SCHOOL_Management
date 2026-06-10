@@ -1,6 +1,6 @@
-from database.base_principale import baseDonnees
+from database.base_principale import baseDonees
 
-class TeacherModels(baseDonnees):
+class TeacherModels(baseDonees):
     def __init__(self):
         super().__init__()
 
@@ -29,4 +29,5 @@ class TeacherModels(baseDonnees):
             (email, password)
         )
         return self.curseur.fetchone()
+    
     

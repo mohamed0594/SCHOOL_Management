@@ -9,8 +9,18 @@ users = UtilisateursModels()
 
 
 print(menuPrincipale)
+users = UtilisateursModels()
+
+print(MenuConnect)
+
+
 
 while True:
+    print("""
+      1. Se connecter
+      0. Quitter
+      
+""")
     print(menuEtudiant)
 
     optionDeChoix = input("Votre option de choix : ")

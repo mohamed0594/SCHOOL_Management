@@ -1,5 +1,5 @@
-from database.base_principale import baseDonnees
-class SubjectsModels(baseDonnees):
+from database.base_principale import baseDonees
+class SubjectsModels(baseDonees):
     def __init__(self):
         super().__init__()
 

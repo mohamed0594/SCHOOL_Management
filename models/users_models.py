@@ -24,10 +24,15 @@ class UtilisateursModels(baseDonees):
         self.curseur.execute("SELECT * FROM users WHERE id = ?", (id,))
         return self.curseur.fetchone()
     
+    def se_connecter(self, email, password):
+     self.curseur.execute(
+        "SELECT * FROM users WHERE email = ? AND password = ?",
+        (email, password)
+    )
+     return self.curseur.fetchone()
     
-    def connexion(self, password):
-        self.curseur.execute(
-            "SELECT * FROM users WHERE username = ? AND password = ?",
-            ( password)
-        )
-        return self.curseur.fetchone()
+    
+    
+    
+    
+   

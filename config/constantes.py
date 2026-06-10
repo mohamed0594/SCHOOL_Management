@@ -11,14 +11,14 @@ menuEtudiant = """
 menuPrincipale = """
 +------------------------------------------------------------+
 |                                                             |
-|       BIENVENUE SUR MON SYSTEME DE GESTION SCOLAIRE         |
+|       BIENVENUE SUR VOTRE SYSTEME DE GESTION SCOLAIRE       |
 |                                                             |
 +-------------------------------------------------------------+
 
 """
 MenuConnect = """
  =========================
- MA PAGE DE CONNEXION
+ MON MENU DE CONNEXION
  =========================
 
 """
