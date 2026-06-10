@@ -32,6 +32,9 @@ class UtilisateursModels(baseDonees):
      return self.curseur.fetchone()
     
     
+
+    
+    
     
     
     
