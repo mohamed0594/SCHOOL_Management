@@ -1,40 +1,39 @@
 from database.base_donnees import BaseDonnees
-
-class AbsenceModel(BaseDonnees):
+class MatiereModel(BaseDonnees):
     def __init__(self):
         super().__init__()
-        super().absences()
+        super().subjects()
 
-    def ajouter_absences(self, student_id, status, date):
+    def ajouter_matieres(self, nom, teacher_id):
             self.curseur.execute(
                 """
-                INSERT INTO absences (student_id, status,date)
-                VALUES (?, ?,  ?)
+                INSERT INTO subjects (nom, teacher_id)
+                VALUES (?, ?)
                 """,
-                (student_id, status,date)
+                (nom, teacher_id)
             )
             self.connexion.commit()
-    def afficher_absences(self):
+    def afficher_matieres(self):
             self.curseur.execute(
                 """
-                SELECT * FROM absences
+                SELECT * FROM subjects
                 """
             )
             return self.curseur.fetchall()
-    def modifier_absences(self, id, student_id, status, date):
+    def modifier_matieres(self, id, nom, teacher_id):
             self.curseur.execute(
                 """
-                UPDATE absences
-                SET student_id = ?,   status = ?, date = ?
+                UPDATE subjects
+                SET nom = ?, teacher_id = ?
                 WHERE id = ?
                 """,
-                (student_id,  status, date, id)
+                (nom, teacher_id, id)
             )
             self.connexion.commit()
-    def supprimer_absences(self, id):
+    def supprimer_matieres(self, id):
             self.curseur.execute(
                 """
-                DELETE FROM absences
+                DELETE FROM subjects
                 WHERE id = ?
                 """,
                 (id,)

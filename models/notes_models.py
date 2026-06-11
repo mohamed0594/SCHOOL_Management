@@ -1,40 +1,39 @@
 from database.base_donnees import BaseDonnees
-
-class AbsenceModel(BaseDonnees):
+class NoteModel(BaseDonnees):
     def __init__(self):
         super().__init__()
-        super().absences()
+        super().notes()
 
-    def ajouter_absences(self, student_id, status, date):
+    def ajouter_notes(self, student_id, subject_id, note):
             self.curseur.execute(
                 """
-                INSERT INTO absences (student_id, status,date)
-                VALUES (?, ?,  ?)
+                INSERT INTO notes (student_id, subject_id, note)
+                VALUES (?, ?, ?)
                 """,
-                (student_id, status,date)
+                (student_id, subject_id, note)
             )
             self.connexion.commit()
-    def afficher_absences(self):
+    def afficher_notes(self):
             self.curseur.execute(
                 """
-                SELECT * FROM absences
+                SELECT * FROM notes
                 """
             )
             return self.curseur.fetchall()
-    def modifier_absences(self, id, student_id, status, date):
+    def modifier_notes(self, id, student_id, subject_id, note):
             self.curseur.execute(
                 """
-                UPDATE absences
-                SET student_id = ?,   status = ?, date = ?
+                UPDATE notes
+                SET student_id = ?, subject_id = ?, note = ?
                 WHERE id = ?
                 """,
-                (student_id,  status, date, id)
+                (student_id, subject_id, note, id)
             )
             self.connexion.commit()
-    def supprimer_absences(self, id):
+    def supprimer_notes(self, id):
             self.curseur.execute(
                 """
-                DELETE FROM absences
+                DELETE FROM notes
                 WHERE id = ?
                 """,
                 (id,)

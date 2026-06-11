@@ -1,41 +1,57 @@
-from database.base_principale import baseDonees
-
-class UtilisateursModels(baseDonees):
+from database.base_donnees import BaseDonnees
+class userModel(BaseDonnees):
     def __init__(self):
         super().__init__()
+        super().users()
 
-    def Ajouter(self, nom, role, password,  email):
-        self.curseur.execute("INSERT INTO users(nom, role, password,  email) VALUES(?,?,?,?)",
-                             (nom, role, password,  email))
-        self.connexion.commit()
-        
-    def supprimer(self, id):
-        self.curseur.execute("DELETE FROM users WHERE id = ?", (id,))
-        self.connexion.commit()
+    def ajouter_users(self, nom,role, email, mot_de_passe):
+            self.curseur.execute(
+                """
+                INSERT INTO users (nom, role, email, mot_de_passe)
+                VALUES (?, ?, ?, ?)
+                """,
+                (nom, role, email, mot_de_passe)
+            )
+            self.connexion.commit()
 
-    def update(self, id, nom, role, password,  email):  
-        self.curseur.execute(
-            "UPDATE users SET nom = ?, role = ?, password = ?,  email = ? WHERE id = ?",
-            (nom, role, password,  email, id)
-        )
-        self.connexion.commit()
+    def afficher_users(self):
+            self.curseur.execute(
+                """
+                SELECT * FROM users
+                """
+            )
+            return self.curseur.fetchall()
+    
+    def modifier_users(self, id, nom, role, email, mot_de_passe):
+            self.curseur.execute(
+                """
+                UPDATE users
+                SET nom = ?, role = ?, email = ?, mot_de_passe = ?
+                WHERE id = ?
+                """,
+                (nom, role, email, mot_de_passe, id)
+            )
+            self.connexion.commit()
 
-    def rechercher(self, id):
-        self.curseur.execute("SELECT * FROM users WHERE id = ?", (id,))
-        return self.curseur.fetchone()
-    
-    def se_connecter(self, email, password):
-     self.curseur.execute(
-        "SELECT * FROM users WHERE email = ? AND password = ?",
-        (email, password)
-    )
-     return self.curseur.fetchone()
-    
-    
+    def supprimer_users(self, id):
+            self.curseur.execute(
+                """
+                DELETE FROM users
+                WHERE id = ?
+                """,
+                (id,)
+            )
+            self.connexion.commit()
 
-    
-    
-    
-    
-    
-   
+            self.fermeture()
+    def login(self, email, mot_de_passe):
+            self.curseur.execute(
+                """
+                SELECT * FROM users
+                WHERE email = ? AND mot_de_passe = ?
+                """,
+                (email, mot_de_passe)
+            )
+            return self.curseur.fetchone()
+
+            

@@ -1,58 +1,58 @@
-from services.auth_service import AuthService
-from services.admin_menu import AdminMenu
-from services.students_services import StudentService
-from services.teachers_services import TeacherService
-from services.subject_services import SubjectService
-from services.grades_services import GradeService
-from services.absences_services import AbsenceService
+from config.constante import menu, menu_connexion, menuPrincipal
+from models.users_models import userModel
+from models.students_models import StudentModel, student_model
 
-auth = AuthService()
-
-
-def login_system():
-    print("\n===== CONNEXION =====")
-    email = input("Email: ")
-    password = input("Mot de passe: ")
-
-    user = auth.login(email, password)
-
-    if not user:
-        print("❌ Connexion échouée")
-        return
-
-    role = user["role"]
-
-    if role == "admin":
-        AdminMenu().run()
-
-    elif role == "professeur":
-        print("👉 Menu professeur à connecter plus tard")
-
-    elif role == "etudiant":
-        print("👉 Menu étudiant à connecter plus tard")
-
-    else:
-        print("❌ Rôle inconnu")
+ 
+user = userModel()
+student = StudentModel()
+print(menu)
 
 
-def main():
-    while True:
-        print("\n===== SYSTEME ECOLE =====")
-        print("1. Connexion")
-        print("0. Quitter")
+print(menu_connexion)
+choix = input("choisir une option : ")
 
-        choix = input("Choix: ")
+   
+if choix == "1":
+        print("entrer vos infos de connexion")
 
-        if choix == "1":
-            login_system()
+        email = input("Entrer votre email : ")
+        password = input("Entrer votre mot de passe : ")
 
-        elif choix == "0":
-            print("👋 Fermeture du système")
-            break
+        trouver = user.login(email, password)
+
+        if not trouver:
+            print("Utilisateur inconnu ")
 
         else:
-            print("❌ Choix invalide")
+            print("\nConnexion réussie !")
+            print("Bienvenue :", trouver[1])
+print(menuPrincipal)
+option = input("Option des menus : ")
+if option == "1":
+       input("Entrer votre matricule")
+       input("Entrer votre nom")
+       input("Entrer votre prenom")
+       input("Entrer votre age")
+       input("Entrer votre classe")
+
+       student_model =student_model.ajouter_students()
+     
+
+elif option == "2":
+     student_model.afficher_students()
+
+elif  option == "3":
+    student_model.modifier_students()
+elif option == "4":
+     student_model.supprimer_students()
+else:
+     print("option invalide ")
+
+     
+     
+     
+     
 
 
-if __name__ == "__main__":
-    main()
+
+
