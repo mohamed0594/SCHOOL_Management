@@ -41,3 +41,5 @@ class NoteModel(BaseDonnees):
             self.connexion.commit()
 
             self.fermeture()
+
+note_model = NoteModel()

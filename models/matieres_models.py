@@ -20,6 +20,7 @@ class MatiereModel(BaseDonnees):
                 """
             )
             return self.curseur.fetchall()
+    
     def modifier_matieres(self, id, nom, teacher_id):
             self.curseur.execute(
                 """
@@ -41,3 +42,5 @@ class MatiereModel(BaseDonnees):
             self.connexion.commit()
 
             self.fermeture()
+
+matiere_model = MatiereModel()

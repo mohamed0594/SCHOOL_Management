@@ -13,12 +13,39 @@ menu_connexion = """
 
                 """
 menuPrincipal = """
-===========================================================
-   1.Gestion des Étudiants
-   2.Gestion des Professeurs
-   3.Gestion des Matières
-   4.Gestion des Notes
-   5.Gestion des Absences
-===========================================================
+=========================
+1 - Gestion étudiants
+2 - Gestion professeurs
+3 - Gestion matières
+4 - Gestion notes
+5 - Gestion absences
+0 - Quitter
+=========================
+"""
+menuProfesseurs = """
+ ===== GESTION DES PROFESSEURS =====
+        1. Ajouter professeur
+        2. Afficher professeurs
+        3. Modifier professeur
+        4. Supprimer professeur
+        5. Quiter
+        """
 
+menuMatieres = """
+===== GESTION DES MATIERES =====
+
+1. Ajouter matière
+2. Afficher matières
+3. Modifier matière
+4. Supprimer matière
+5. Quitter
+
+"""
+menuNotes = """
+===== GESTION DES NOTES =====
+1. Ajouter note
+2. Afficher toutes les notes
+3. Voir notes d’un étudiant
+4. Supprimer une notes
+5. Quitter
 """

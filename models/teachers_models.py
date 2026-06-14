@@ -45,3 +45,5 @@ class TeacherModel(BaseDonnees):
         self.connexion.commit()
         
         self.fermeture()
+
+teacher_model = TeacherModel()
