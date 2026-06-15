@@ -42,9 +42,7 @@ if choix == "1":
 
     option = input("Option du menu : ")
 
-    # ==========================
-    # GESTION DES ETUDIANTS
-    # ==========================
+   
     if option == "1":
 
         print("""
@@ -53,6 +51,7 @@ if choix == "1":
 2. Afficher étudiants
 3. Modifier étudiant
 4. Supprimer étudiant
+5. Quitter
 """)
 
         choix_etudiant = input("Votre choix : ")
@@ -113,13 +112,13 @@ if choix == "1":
             student_model.supprimer_students(id)
 
             print("Étudiant supprimé")
+        elif choix_etudiant =="5":
+            print("Vous etes hors du programme")
+            exit()
 
         else:
             print("Choix invalide")
 
-    # ==========================
-    # GESTION DES PROFESSEURS
-    # ==========================
     elif option == "2":
 
         print(menuProfesseurs)
@@ -170,13 +169,15 @@ if choix == "1":
             teacher_model.supprimer_teachers(id)
 
             print("Professeur supprimé")
+        
+        elif choix_prof == "5":
+            print(" vous etes hors du programme! ")
+            exit()
+
 
         else:
             print("Choix invalide")
 
-    # ==========================
-    # GESTION DES MATIERES
-    # ==========================
     elif option == "3":
 
         print(menuMatieres)
@@ -227,13 +228,15 @@ if choix == "1":
             matiere_model.supprimer_matieres(id)
 
             print("Matière supprimée")
+        
+        elif choix_matiere == "5":
+            print("vous etes hors du programme !")
+            exit()
+        
 
         else:
             print("Choix invalide")
 
-    # ==========================
-    # GESTION DES NOTES
-    # ==========================
     elif option == "4":
 
         print(menuNotes)
@@ -288,6 +291,10 @@ if choix == "1":
             note_model.supprimer_notes(id_note)
 
             print("Note supprimée")
+
+        elif choix_note == "5":
+            print(" vous etes hors du programme")
+            exit()
 
         else:
             print("Choix invalide")
