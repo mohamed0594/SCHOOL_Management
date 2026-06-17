@@ -19,6 +19,7 @@ menuPrincipal = """
 3 - Gestion matières
 4 - Gestion notes
 5 - Gestion absences
+6 -  Statistique
 0 - Quitter
 =========================
 """
@@ -48,4 +49,11 @@ menuNotes = """
 3. Voir notes d’un étudiant
 4. Supprimer une notes
 5. Quitter
+"""
+statistique = """
+===== STATISTIQUES =====
+1. Moyenne générale
+2. Moyenne d'un étudiant
+3. Meilleur étudiant
+4. Nombre d'absences
 """

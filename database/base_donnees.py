@@ -92,6 +92,36 @@ class BaseDonnees:
         """
         )
         self.connexion.commit()
+
+    def moyenne_generale(self):
+        self.curseur.execute("SELECT AVG(note) FROM notes")
+        result = self.curseur.fetchone()[0]
+        return result if result is not None else 0
+
+    def moyenne_etudiant(self, student_id):
+        self.curseur.execute(
+            """
+            SELECT AVG(note)
+            FROM notes
+            WHERE student_id = ?
+            """,
+            (student_id,)
+        )
+        result = self.curseur.fetchone()[0]
+        return result if result is not None else 0
+
+    def meilleur_etudiant(self):
+        self.curseur.execute(
+            """
+            SELECT students.id, students.nom, students.prenom, AVG(notes.note) as moyenne
+            FROM notes
+            JOIN students ON students.id = notes.student_id
+            GROUP BY students.id
+            ORDER BY moyenne DESC
+            LIMIT 1
+            """
+        )
+        return self.curseur.fetchone()
     
     def fermeture(self):
         self.connexion.close()

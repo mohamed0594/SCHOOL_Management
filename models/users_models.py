@@ -4,15 +4,21 @@ class userModel(BaseDonnees):
         super().__init__()
         super().users()
 
-    def ajouter_users(self, nom,role, email, mot_de_passe):
-            self.curseur.execute(
-                """
-                INSERT INTO users (nom, role, email, mot_de_passe)
-                VALUES (?, ?, ?, ?)
-                """,
-                (nom, role, email, mot_de_passe)
-            )
-            self.connexion.commit()
+    def ajouter_users(self, nom, role, email, mot_de_passe):
+      roles_autorises = ["admin", "teachers", "students"]
+
+      if role not in roles_autorises:
+        print("Rôle invalide")
+        return
+
+      self.curseur.execute(
+        """
+        INSERT INTO users (nom, role, email, mot_de_passe)
+        VALUES (?, ?, ?, ?)
+        """,
+        (nom, role, email, mot_de_passe)
+    )
+      self.connexion.commit()
 
     def afficher_users(self):
             self.curseur.execute(

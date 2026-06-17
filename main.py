@@ -12,14 +12,16 @@ from models.students_models import student_model
 from models.teachers_models import TeacherModel
 from models.matieres_models import matiere_model
 from models.notes_models import note_model
-
+from models.absences_models import AbsenceModel
 
 teacher_model = TeacherModel()
 user = userModel()
+absence_model = AbsenceModel()
 
 print(menu)
 print(menu_connexion)
 
+# LOGIN 
 choix = input("Choisir une option : ")
 
 if choix == "1":
@@ -32,275 +34,221 @@ if choix == "1":
     trouver = user.login(email, password)
 
     if not trouver:
-        print("Utilisateur inconnu reesayer! ")
+        print("Utilisateur inconnu, réessayez !")
         exit()
 
     print("Connexion réussie")
     print("Bienvenue :", trouver[1])
 
-    print(menuPrincipal)
+    role = trouver[2]
+    print("Rôle :", role)
 
-    option = input("Option du menu : ")
+    # BOUCLE PRINCIPALE 
+    while True:
 
-   
-    if option == "1":
+        print(menuPrincipal)
+        option = input("Option du menu : ")
 
-        print("""
-===== GESTION DES ETUDIANTS =====
+        # QUITTER 
+        if option == "0":
+            print("Au revoir ")
+            break
+
+        # ETUDIANTS 
+        elif option == "1":
+
+            while True:
+                choix_etudiant = input("""
 1. Ajouter étudiant
 2. Afficher étudiants
 3. Modifier étudiant
 4. Supprimer étudiant
-5. Quitter
-""")
+5. Retour
+Votre choix : """)
 
-        choix_etudiant = input("Votre choix : ")
+                if choix_etudiant == "1":
+                    matricule = input("Matricule : ")
+                    nom = input("Nom : ")
+                    prenom = input("Prénom : ")
+                    age = input("Âge : ")
+                    classe = input("Classe : ")
 
-        if choix_etudiant == "1":
+                    student_model.ajouter_students(matricule, nom, prenom, age, classe)
+                    print("Étudiant ajouté")
 
-            matricule = input("Matricule : ")
-            nom = input("Nom : ")
-            prenom = input("Prénom : ")
-            age = input("Âge : ")
-            classe = input("Classe : ")
+                elif choix_etudiant == "2":
+                    for e in student_model.afficher_students():
+                        print(e)
 
-            student_model.ajouter_students(
-                matricule,
-                nom,
-                prenom,
-                age,
-                classe
-            )
+                elif choix_etudiant == "3":
+                    id = input("ID : ")
+                    student_model.modifier_students(
+                        id,
+                        input("Matricule : "),
+                        input("Nom : "),
+                        input("Prénom : "),
+                        input("Âge : "),
+                        input("Classe : ")
+                    )
+                    print("Étudiant modifié")
 
-            print("Étudiant ajouté")
+                elif choix_etudiant == "4":
+                    student_model.supprimer_students(input("ID : "))
+                    print("Étudiant supprimé")
 
-        elif choix_etudiant == "2":
+                elif choix_etudiant == "5":
+                    break
 
-            etudiants = student_model.afficher_students()
+        # PROFESSEURS
+        elif option == "2":
 
-            if not etudiants:
-                print("Aucun étudiant trouvé")
+            while True:
+                choix_prof = input("""
+1. Ajouter prof
+2. Afficher profs
+3. Modifier prof
+4. Supprimer prof
+5. Retour
+Votre choix : """)
 
-            else:
-                for etudiant in etudiants:
-                    print(etudiant)
+                if choix_prof == "1":
+                    teacher_model.ajouter_teachers(
+                        input("Nom : "),
+                        input("Matière : ")
+                    )
+                    print("Professeur ajouté")
 
-        elif choix_etudiant == "3":
+                elif choix_prof == "2":
+                    for p in teacher_model.afficher_teachers():
+                        print(p)
 
-            id = input("ID : ")
-            matricule = input("Matricule : ")
-            nom = input("Nom : ")
-            prenom = input("Prénom : ")
-            age = input("Âge : ")
-            classe = input("Classe : ")
+                elif choix_prof == "3":
+                    teacher_model.modifier_teachers(
+                        input("ID : "),
+                        input("Nom : "),
+                        input("Matière : ")
+                    )
+                    print("Professeur modifié")
 
-            student_model.modifier_students(
-                id,
-                matricule,
-                nom,
-                prenom,
-                age,
-                classe
-            )
+                elif choix_prof == "4":
+                    teacher_model.supprimer_teachers(input("ID : "))
+                    print("Professeur supprimé")
 
-            print("Étudiant modifié")
+                elif choix_prof == "5":
+                    break
 
-        elif choix_etudiant == "4":
+        #  MATIERES 
+        elif option == "3":
 
-            id = input("ID : ")
+            while True:
+                choix_matiere = input("""
+1. Ajouter matière
+2. Afficher matières
+3. Modifier matière
+4. Supprimer matière
+5. Retour
+Votre choix : """)
 
-            student_model.supprimer_students(id)
+                if choix_matiere == "1":
+                    matiere_model.ajouter_matieres(
+                        input("Nom : "),
+                        input("ID prof : ")
+                    )
+                    print("Matière ajoutée")
 
-            print("Étudiant supprimé")
-        elif choix_etudiant =="5":
-            print("Vous etes hors du programme")
-            exit()
+                elif choix_matiere == "2":
+                    for m in matiere_model.afficher_matieres():
+                        print(m)
+
+                elif choix_matiere == "3":
+                    matiere_model.modifier_matieres(
+                        input("ID : "),
+                        input("Nom : "),
+                        input("ID prof : ")
+                    )
+                    print("Matière modifiée")
+
+                elif choix_matiere == "4":
+                    matiere_model.supprimer_matieres(input("ID : "))
+                    print("Matière supprimée")
+
+                elif choix_matiere == "5":
+                    break
+
+        #  NOTES 
+        elif option == "4":
+
+            while True:
+                choix_note = input("""
+1. Ajouter note
+2. Afficher notes
+3. Modifier note
+4. Supprimer note
+5. Retour
+Votre choix : """)
+
+                if choix_note == "1":
+                    note_model.ajouter_notes(
+                        input("ID étudiant : "),
+                        input("ID matière : "),
+                        input("Note : ")
+                    )
+                    print("Note ajoutée")
+
+                elif choix_note == "2":
+                    for n in note_model.afficher_notes():
+                        print(n)
+
+                elif choix_note == "3":
+                    note_model.modifier_notes(
+                        input("ID note : "),
+                        input("ID étudiant : "),
+                        input("ID matière : "),
+                        input("Note : ")
+                    )
+                    print("Note modifiée")
+
+                elif choix_note == "4":
+                    note_model.supprimer_notes(input("ID note : "))
+                    print("Note supprimée")
+
+                elif choix_note == "5":
+                    break
+
+        # STATISTIQUES 
+        elif option == "6":
+
+            while True:
+                choix_stat = input("""
+1. Moyenne générale
+2. Moyenne étudiant
+3. Meilleur étudiant
+4. Absences
+5. Retour
+Votre choix : """)
+
+                if choix_stat == "1":
+                    moyenne = note_model.moyenne_generale()
+                    print(f"Moyenne générale : {moyenne:.2f}")
+
+                elif choix_stat == "2":
+                    student_id = input("ID étudiant : ")
+                    moyenne = note_model.moyenne_etudiant(student_id)
+                    print(f"Moyenne étudiant : {moyenne:.2f}")
+
+                elif choix_stat == "3":
+                    meilleur = note_model.meilleur_etudiant()
+                    print(f"Meilleur : {meilleur[1]} {meilleur[2]}")
+                    print(f"Moyenne : {meilleur[3]:.2f}")
+
+                elif choix_stat == "4":
+                    student_id = input("ID étudiant : ")
+                    nombre = absence_model.compter_absences(student_id)
+                    print(f"Absences : {nombre}")
+
+                elif choix_stat == "5":
+                    break
 
         else:
-            print("Choix invalide")
-
-    elif option == "2":
-
-        print(menuProfesseurs)
-
-        choix_prof = input("Votre choix : ")
-
-        if choix_prof == "1":
-
-            nom = input("Nom : ")
-            matiere = input("Matière : ")
-
-            teacher_model.ajouter_teachers(
-                nom,
-                matiere
-            )
-
-            print("Professeur ajouté")
-
-        elif choix_prof == "2":
-
-            profs = teacher_model.afficher_teachers()
-
-            if not profs:
-                print("Aucun professeur trouvé")
-
-            else:
-                for prof in profs:
-                    print(prof)
-
-        elif choix_prof == "3":
-
-            id = input("ID : ")
-            nom = input("Nom : ")
-            matiere = input("Matière : ")
-
-            teacher_model.modifier_teachers(
-                id,
-                nom,
-                matiere
-            )
-
-            print("Professeur modifié")
-
-        elif choix_prof == "4":
-
-            id = input("ID : ")
-
-            teacher_model.supprimer_teachers(id)
-
-            print("Professeur supprimé")
-        
-        elif choix_prof == "5":
-            print(" vous etes hors du programme! ")
-            exit()
-
-
-        else:
-            print("Choix invalide")
-
-    elif option == "3":
-
-        print(menuMatieres)
-
-        choix_matiere = input("Entrer votre choix : ")
-
-        if choix_matiere == "1":
-
-            nom = input("Entrer le nom de votre matière : ")
-            id_teacher = input("Entrer l'identifiant du professeur : ")
-
-            matiere_model.ajouter_matieres(
-                nom,
-                id_teacher
-            )
-
-            print("Matière ajoutée")
-
-        elif choix_matiere == "2":
-
-            matieres = matiere_model.afficher_matieres()
-
-            if not matieres:
-                print("Aucune matière trouvée")
-
-            else:
-                for matiere in matieres:
-                    print(matiere)
-
-        elif choix_matiere == "3":
-
-            id = input("ID : ")
-            nom = input("Nom : ")
-            id_teacher = input("ID professeur : ")
-
-            matiere_model.modifier_matieres(
-                id,
-                nom,
-                id_teacher
-            )
-
-            print("Matière modifiée")
-
-        elif choix_matiere == "4":
-
-            id = input("ID : ")
-
-            matiere_model.supprimer_matieres(id)
-
-            print("Matière supprimée")
-        
-        elif choix_matiere == "5":
-            print("vous etes hors du programme !")
-            exit()
-        
-
-        else:
-            print("Choix invalide")
-
-    elif option == "4":
-
-        print(menuNotes)
-
-        choix_note = input("Votre choix : ")
-
-        if choix_note == "1":
-
-            student_id = input("ID étudiant : ")
-            subject_id = input("ID matière : ")
-            note = input("Note : ")
-
-            note_model.ajouter_notes(
-                student_id,
-                subject_id,
-                note
-            )
-
-            print("Note ajoutée")
-
-        elif choix_note == "2":
-
-            notes = note_model.afficher_notes()
-
-            if not notes:
-                print("Aucune note trouvée")
-
-            else:
-                for note in notes:
-                    print(note)
-
-        elif choix_note == "3":
-
-            id_note = input("ID note : ")
-            student_id = input("ID étudiant : ")
-            subject_id = input("ID matière : ")
-            note = input("Note : ")
-
-            note_model.modifier_notes(
-                id_note,
-                student_id,
-                subject_id,
-                note
-            )
-
-            print("Note modifiée")
-
-        elif choix_note == "4":
-
-            id_note = input("ID note : ")
-
-            note_model.supprimer_notes(id_note)
-
-            print("Note supprimée")
-
-        elif choix_note == "5":
-            print(" vous etes hors du programme")
-            exit()
-
-        else:
-            print("Choix invalide")
-
-    else:
-        print("Option invalide")
-
-else:
-    print("Au revoir")
+            print("Option invalide")
+            
