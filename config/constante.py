@@ -19,7 +19,7 @@ menuPrincipal = """
 3 - Gestion matières
 4 - Gestion notes
 5 - Gestion absences
-6 -  Statistique
+6 - Statistique
 0 - Quitter
 =========================
 """
@@ -57,3 +57,11 @@ statistique = """
 3. Meilleur étudiant
 4. Nombre d'absences
 """
+
+menus_choice =            """
+1. Ajouter étudiant
+2. Afficher étudiants
+3. Modifier étudiant
+4. Supprimer étudiant
+5. Retour
+Votre choix : """
