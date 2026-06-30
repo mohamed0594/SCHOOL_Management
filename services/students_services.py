@@ -34,12 +34,12 @@ def modifier_students():
     print("Étudiant modifié avec succès.")
     logging.info(f"Étudiant ID {id} modifié.")
 
-def supprimer_all():
-    confirmation = input("Voulez-vous vraiment TOUT supprimer ? (oui/non) : ")
-    if confirmation.lower() == 'oui':
-        
-        student_model.supprimer_all_students() 
-        print("Tous les étudiants ont été supprimés.")
-        logging.warning("Tous les étudiants ont été supprimés de la base.")
+def supprimer_students(id):
+    confirmation = input("Voulez-vous vraiment supprimer cet étudiant ? (oui/non) : ")
+
+    if confirmation.lower() == "oui":
+        student_model.supprimer_students(id)
+        print("Étudiant supprimé.")
+        logging.info(f"Étudiant ID {id} supprimé.")
     else:
         print("Action annulée.")

@@ -85,8 +85,8 @@ while True:
                 
 
                 elif choix_etudiant == "4":
-                    student_model.supprimer_students(input("ID : "))
-                    students_services.supprimer_all()
+                    students_services.supprimer_students(input("ID : "))
+                   
 
                 elif choix_etudiant == "5":
                     break
@@ -152,8 +152,18 @@ while True:
 
                 elif choix_matiere == "3":
                    matiers_services.modifier_matieres()
-                elif choix_matiere == "4":
-                    matiers_services.supp_matieres()
+                   
+
+                #elif choix_etudiant == "4":
+                   # id = input("ID : ")
+                   # students_services.supprimer_students(id)
+
+                if choix_matiere == "4":
+                     matiers_services.supp_matieres()
+
+                
+
+
                 elif choix_matiere == "5":
                     break
 
@@ -173,7 +183,7 @@ Votre choix : """)
                     notes_services.matieres_add()
                     
                 elif choix_note == "2":
-                    notes_services.afficher_notes
+                    notes_services.afficher_notes()
 
                 elif choix_note == "3":
                    notes_services.modifier_notes()

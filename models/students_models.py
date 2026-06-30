@@ -41,6 +41,6 @@ class StudentModel(BaseDonnees):
             )
             self.connexion.commit()
 
-            self.fermeture()
+          
 
 student_model = StudentModel()
