@@ -24,7 +24,7 @@ absence_model = AbsenceModel()
 print(menu)
 print(menu_connexion)
 
-# LOGIN 
+# lOGIN 
 while True:
  choix = input("Choisir une option : ")
  if choix == "0":

@@ -7,8 +7,10 @@ def add_student():
     prenom = input("Prénom : ")
     age = input("Âge : ")
     classe = input("Classe : ")
+    email = input("Email de connexion : ")
+    password = input("Mot de passe : ")
     
-    student_model.ajouter_students(matricule, nom, prenom, age, classe)
+    student_model.ajouter_students(matricule, nom, prenom, age, classe, email, password)
     print("Étudiant ajouté")
     logging.info(f"Étudiant ajouté : {matricule} - {nom} {prenom}")
 
@@ -28,9 +30,10 @@ def modifier_students():
     prenom = input("Nouveau Prénom : ")
     age = input("Nouvel Âge : ")
     classe = input("Nouvelle Classe : ")
-    
-    
-    student_model.modifier_students(id, mat, nom, prenom, age, classe)
+    email = input("Nouvel Email de connexion : ")
+    password = input("Nouveau Mot de passe : ")
+
+    student_model.modifier_students(id, mat, nom, prenom, age, classe, email, password)
     print("Étudiant modifié avec succès.")
     logging.info(f"Étudiant ID {id} modifié.")
 
