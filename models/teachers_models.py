@@ -5,7 +5,8 @@ class TeacherModel(BaseDonnees):
         super().__init__()
         super().teachers()
         
-    def ajouter_teachers(self, nom, matiere):
+    def ajouter_teachers(self, nom, matiere, email, password):
+
         self.curseur.execute(
             """
             INSERT INTO teachers (nom, matiere)
@@ -13,6 +14,15 @@ class TeacherModel(BaseDonnees):
             """,
             (nom, matiere)
         )
+      
+        self.curseur.execute(
+            """
+            INSERT INTO users (nom, role, email, mot_de_passe)
+            VALUES (?, ?, ?, ?)
+            """,
+            (nom, "Professeur", email, password)
+        )
+        
         self.connexion.commit()
 
     def afficher_teachers(self):
@@ -24,6 +34,7 @@ class TeacherModel(BaseDonnees):
         return self.curseur.fetchall()
 
     def modifier_teachers(self, id, nom, matiere):
+       
         self.curseur.execute(
             """
             UPDATE teachers
@@ -43,7 +54,5 @@ class TeacherModel(BaseDonnees):
             (id,)
         )
         self.connexion.commit()
-        
-        self.fermeture()
 
 teacher_model = TeacherModel()

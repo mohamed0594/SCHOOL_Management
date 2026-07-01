@@ -107,8 +107,10 @@ while True:
                      
                      nom=input("Nom : ")
                      matiere=input("Matière : ")
+                     email = input("Email de connexion : ")
+                     password = input("Mot de passe : ")
                      
-                     teacher_model.ajouter_teachers(nom, matiere)
+                     teacher_model.ajouter_teachers(nom, matiere, email, password)
                      print("Professeur ajouté")
 
                 elif choix_prof == "2":
