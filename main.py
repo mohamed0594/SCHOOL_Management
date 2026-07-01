@@ -167,7 +167,7 @@ while True:
                 elif choix_matiere == "5":
                     break
 
-        #  NOTES 
+               #  NOTES 
         elif option == "4":
 
             while True:
@@ -181,19 +181,58 @@ Votre choix : """)
 
                 if choix_note == "1":
                     notes_services.matieres_add()
-                    
+
                 elif choix_note == "2":
                     notes_services.afficher_notes()
 
                 elif choix_note == "3":
-                   notes_services.modifier_notes()
+                    notes_services.modifier_notes()
+
                 elif choix_note == "4":
-                   notes_services.supp_notes()
+                    notes_services.supp_notes()
 
                 elif choix_note == "5":
                     break
 
-        # STATISTIQUES 
+        # ABSENCES
+        elif option == "5":
+
+            while True:
+                choix_absence = input("""
+1. Marquer une absence
+2. Afficher les absences
+3. supprimer une absence
+4. Retour
+Votre choix : """)
+
+                if choix_absence == "1":
+                    student_id = input("ID étudiant : ")
+                    status = input("Statut (Absent/Présent) : ")
+                    date = input("Date (YYYY-MM-DD) : ")
+                    absence_model.ajouter_absences(student_id, status, date)
+                    print("Absence enregistrée.")
+
+                elif choix_absence == "2":
+                   # student_id = input("ID étudiant : ")
+                    #print(f"Nombre d'absences : {absence_model.compter_absences(student_id)}")
+                
+                     for absence in absence_model.afficher_absences():
+                        print(absence)
+
+                elif choix_absence == "3":
+                    
+                    id_absence = input("ID de l'absence : ")
+                    absence_model.supprimer_absences(id_absence)
+                    print("Absence supprimée.")
+                elif choix_absence == "4":
+                    break
+
+                                    
+
+                else:
+                    print("Choix invalide.")
+
+        # STATISTIQUES
         elif option == "6":
 
             while True:

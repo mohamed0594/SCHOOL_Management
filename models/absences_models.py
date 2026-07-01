@@ -41,7 +41,7 @@ class AbsenceModel(BaseDonnees):
             )
             self.connexion.commit()
 
-            self.fermeture()
+            
     def compter_absences(self, student_id):
      self.curseur.execute(
         """
